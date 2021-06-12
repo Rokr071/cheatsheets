@@ -118,11 +118,11 @@ note - We can get more control by passing some additional flags. Check out the o
 
   This command will create a table that inventories playground equipment. The first column in the table will hold equipment ID numbers of the ```serial``` type, which is an auto-incrementing integer. This column also has the constraint of ```PRIMARY KEY``` which means that the values within it must be unique and not null.
 
-  The next two lines create columns for the equipment ```type``` and ```color``` respectively, neither of which can be empty. The line after these creates a ```location``` column as well as a constraint that requires the value to be one of eight possible values. The last line creates a ```date``` column that records the date on which you installed the equipment.
+  The next two lines create columns for the equipment ```type``` and ```color``` respectively, neither of which can be empty. The line after these creates a ```location``` column as well as a constraint that requires the value to be one of eight possible values. The last line creates a ```date``` column that records the date on which we installed the equipment.
 
   For two of the columns (```equip_id``` and ```install_date```), the command doesn’t specify a field length. The reason for this is that some data types don’t require a set length because the length or format is implied.
 
-* You can see your new table by typing:
+* we can see our new table by typing:
   ```
   \d
   ```
@@ -137,9 +137,9 @@ note - We can get more control by passing some additional flags. Check out the o
   (2 rows)
   ```
 
-  Your playground table is here, but there’s also something called ```playground_equip_id_seq``` that is of the type ```sequence```. This is a representation of the ```serial``` type which you gave your ```equip_id``` column. This keeps track of the next number in the sequence and is created automatically for columns of this type.
+  our playground table is here, but there’s also something called ```playground_equip_id_seq``` that is of the type ```sequence```. This is a representation of the ```serial``` type which we gave our ```equip_id``` column. This keeps track of the next number in the sequence and is created automatically for columns of this type.
 
-* If you want to see just the table without the sequence, you can type:
+* If we want to see just the table without the sequence, we can type:
   ```
   \dt
   ```
@@ -151,4 +151,41 @@ note - We can get more control by passing some additional flags. Check out the o
   --------+------------+-------+----------
    public | playground | table | postgres
   (1 row)
+  ```
+
+##### Adding, Querying, and Deleting Data in a Table
+* Now that we have a table, we can insert some data into it.
+  ```
+  INSERT INTO playground (type, color, location, install_date) VALUES ('slide', 'blue', 'south', '2017-04-28');
+  ```
+  ```
+  INSERT INTO playground (type, color, location, install_date) VALUES ('swing', 'yellow', 'northwest', '2018-08-16');
+  ```
+
+  note - Do not wrap the column names in quotation marks, but the column values that we enter do need quotes.
+  Another thing to keep in mind is that we do not enter a value for the ```equip_id``` column. This is because this is automatically generated whenever we add a new row to the table.
+
+* Retrieve the information we’ve added by typing:
+  ```
+  SELECT * FROM table-name;
+  ```
+  example -
+  ```
+  SELECT * FROM playground;
+  ```
+
+  output - 
+  ```
+    equip_id | type  | color  | location  | install_date 
+   ----------+-------+--------+-----------+--------------
+           1 | slide | blue   | south     | 2017-04-28
+           2 | swing | yellow | northwest | 2018-08-16
+   (2 rows)
+  ```
+
+  Here, we can see that our ```equip_id``` has been filled in successfully.
+
+* We can also remove the row from our table by typing:
+  ```
+  DELETE FROM playground WHERE type = 'slide';
   ```
