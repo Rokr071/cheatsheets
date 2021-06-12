@@ -93,3 +93,62 @@ note - We can get more control by passing some additional flags. Check out the o
   ```
   \conninfo
   ```
+
+##### Creating and Deleting Tables
+
+* The basic syntax for creating tables is as follows:
+  ```
+  CREATE TABLE table_name (
+    column_name1 col_type (field_length) column_constraints,
+    column_name2 col_type (field_length),
+    column_name3 col_type (field_length)
+  );
+  ```
+
+* For demonstration purposes, create the following table: 
+  ```
+  CREATE TABLE playground (
+    equip_id serial PRIMARY KEY,
+    type varchar (50) NOT NULL,
+    color varchar (25) NOT NULL,
+    location varchar(25) check (location in ('north', 'south', 'west', 'east', 'northeast', 'southeast', 'southwest', 'northwest')),
+    install_date date
+  );
+  ```
+
+  This command will create a table that inventories playground equipment. The first column in the table will hold equipment ID numbers of the ```serial``` type, which is an auto-incrementing integer. This column also has the constraint of ```PRIMARY KEY``` which means that the values within it must be unique and not null.
+
+  The next two lines create columns for the equipment ```type``` and ```color``` respectively, neither of which can be empty. The line after these creates a ```location``` column as well as a constraint that requires the value to be one of eight possible values. The last line creates a ```date``` column that records the date on which you installed the equipment.
+
+  For two of the columns (```equip_id``` and ```install_date```), the command doesn’t specify a field length. The reason for this is that some data types don’t require a set length because the length or format is implied.
+
+* You can see your new table by typing:
+  ```
+  \d
+  ```
+
+  output -
+  ```
+                     List of relations
+   Schema |          Name           |   Type   |  Owner   
+  --------+-------------------------+----------+----------
+   public | playground              | table    | postgres
+   public | playground_equip_id_seq | sequence | postgres
+  (2 rows)
+  ```
+
+  Your playground table is here, but there’s also something called ```playground_equip_id_seq``` that is of the type ```sequence```. This is a representation of the ```serial``` type which you gave your ```equip_id``` column. This keeps track of the next number in the sequence and is created automatically for columns of this type.
+
+* If you want to see just the table without the sequence, you can type:
+  ```
+  \dt
+  ```
+
+  output -
+  ```
+             List of relations
+   Schema |    Name    | Type  |  Owner   
+  --------+------------+-------+----------
+   public | playground | table | postgres
+  (1 row)
+  ```
