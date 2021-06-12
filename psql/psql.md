@@ -211,3 +211,10 @@ note - We can get more control by passing some additional flags. Check out the o
   ```
   ALTER TABLE playground DROP last_maint;
   ```
+
+##### Updating Data in a Table
+
+* Update query - 
+  ```
+  UPDATE playground SET color = 'red' WHERE type = 'swing';  
+  ```
