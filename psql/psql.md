@@ -189,3 +189,25 @@ note - We can get more control by passing some additional flags. Check out the o
   ```
   DELETE FROM playground WHERE type = 'slide';
   ```
+
+##### Adding and Deleting Columns from a Table
+
+  After creating a table, you can modify it by adding or removing columns.
+
+* Add a column to the table -
+  ```
+  ALTER TABLE table-name ADD column-name column-type;
+  ```
+  example -
+  ```
+  ALTER TABLE playground ADD last_maint date;
+  ```
+
+* Delete of the column from table by typing:
+  ```
+  ALTER TABLE table-name DROP column-name;
+  ```
+  example -
+  ```
+  ALTER TABLE playground DROP last_maint;
+  ```
